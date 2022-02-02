@@ -72,7 +72,7 @@
 
 #main-word{
     margin: auto; 
-    font-size: 8vmin;
+    font-size: 7vmin;
     border: 1px solid cadetblue;
     padding: 20px;
     background: lightblue;
@@ -90,7 +90,7 @@
 }
 
 #options button{
-    font-size: 5vmin;
+    font-size: 4vmin;
     padding: 20px;
     margin: auto;
     margin-bottom: 3vh;
