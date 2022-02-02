@@ -1,5 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+        <title>Test Your Vocabs</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <script src="words.js"></script>
         <script src="index.js"></script>
         <script src="variables.js"></script>
@@ -10,17 +14,18 @@
             <div id="header">
                 Test Your Vocabs
             </div>
-            <!-- <div id="info">
-                Here you find info about your history
-            </div> -->
+            <div id="info">
+                <span>Highest Score: <span id="highest"></span></span>
+                <span>Current Score: <span id="current"></span></span>
+            </div>
             <div id="language">
-                <div id="language-selector">
+                <div class="language-selector">
                     <label for="firstlanguage">Choose your First Language:</label>
                     <select id="firstlanguage" name="firstlanguage">
                         <option selected disabled hidden value="">Choose Language</option>
                     </select>
                 </div>
-                <div id="language-selector">
+                <div class="language-selector">
                     <label for="secondlanguage">Choose your Second Language:</label>
                     <select id="secondlanguage" name="secondlanguage">
                         <option selected disabled hidden value="">Choose Language</option>

@@ -12,6 +12,27 @@ let languages = [
     }, {
         language: 'Spanish',
         code: 'es'
+    }, {
+        language: 'Dutch',
+        code: 'nl'
+    }, {
+        language: 'Turkish',
+        code: 'tr'
+    }, {
+        language: 'Spanish',
+        code: 'es'
+    }, {
+        language: 'German',
+        code: 'de'
+    }, {
+        language: 'Norwegian',
+        code: 'no'
+    }, {
+        language: 'Russian',
+        code: 'ru'
+    }, {
+        language: 'Italian',
+        code: 'it'
     }
 ];
 

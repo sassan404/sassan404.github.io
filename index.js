@@ -4,6 +4,10 @@ let select2;
 let mainWord;
 let translationContainer;
 
+let highestScore;
+let currentScore;
+let currentScoreValue;
+
 let srcLanguage;
 let targetLanguage;
 
@@ -15,6 +19,14 @@ window.onload = function(){
     mainWord = document.getElementById('main-word');
     translationContainer = document.getElementById('options');
 
+
+    highestScore = document.getElementById('highest');
+    highestScore.innerHTML =  getHighestScore();
+
+    currentScore = document.getElementById('current');
+    currentScoreValue = getCurrentScore();
+    currentScore.innerHTML = currentScoreValue;
+
     setLangaugeSelection();
     setSelectonEvents();
 };
@@ -23,11 +35,11 @@ let setLangaugeSelection = function(){
     languages.forEach( language => {
         let option1 = document.createElement('option');
         option1.setAttribute('value', language.code);
-        option1.appendChild(document.createTextNode(language.language));
+        option1.innerHTML = (language.language);
         select1.appendChild(option1);
         let option2 = document.createElement('option');
         option2.setAttribute('value', language.code);
-        option2.appendChild(document.createTextNode(language.language));
+        option2.innerHTML= (language.language);
         select2.appendChild(option2);
     });
 };
@@ -100,7 +112,7 @@ let setMainWord = function(words){
     while(mainWord.firstChild){
         mainWord.firstChild.remove();
     }
-    mainWord.appendChild(document.createTextNode(targetPair.word));
+    mainWord.innerHTML = targetPair.word;
     mainWord.hidden = false;
     return JSON.stringify(targetPair);
 };
@@ -112,18 +124,23 @@ let setQuizOptions = function(mainWordValue, words){
     }
     words.forEach(pair => {
         let translation = document.createElement('button');
-        translation.appendChild(document.createTextNode(pair.translated));
+        translation.innerHTML = (pair.translated);
         translation.setAttribute('value', JSON.stringify(pair));
         translation.onclick = function(e ){
             if(e.target.value === mainWordValue) {
                 e.target.classList.add("true");
                 e.target.classList.remove("false");
+                currentScoreValue++;
+                currentScore.innerHTML = currentScoreValue;
+                setScore();
                 setTimeout(() => {
                     newQuiz();
                 }, 100);
             } else {
                 e.target.classList.add('false');
                 e.target.classList.remove("true");
+                currentScoreValue = 0;
+                currentScore.innerHTML = currentScoreValue;
                 setTimeout(() => {
                     setQuizOptions(mainWordValue, words);
                 }, 500);
@@ -141,4 +158,20 @@ let shuffleArray = function(array) {
         array.splice(randIndex,1);
     }
     return newArray;
+}
+
+let getHighestScore = function(){
+    return parseInt(localStorage.getItem('highest score')) || 0;
+}
+
+let getCurrentScore = function(){
+    return parseInt(localStorage.getItem('current score')) || 0;
+}
+
+let setScore = function(){
+    localStorage.setItem('current score', currentScoreValue);
+    if (currentScoreValue > getHighestScore()){
+        highestScore.innerHTML = currentScoreValue;
+        localStorage.setItem('highest score', currentScoreValue);
+    }
 }
