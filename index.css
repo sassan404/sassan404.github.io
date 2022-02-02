@@ -1,0 +1,113 @@
+
+#main-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#header{
+    background-color: aquamarine;
+    width: inherit;
+    font-size: 10vmin;
+    border: 1px solid blueviolet;
+    box-shadow: 5px 4px cadetblue;
+    color: darkblue;
+}
+
+#info{
+    height: fit-content;
+    margin: 2%;
+    font-size: 4vmin;
+    align-self: baseline;
+    flex-direction: row;
+}
+
+#language{
+    width: 90%;
+    padding: 2vh;
+    background: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-direction: row;
+    font-size: 2vmin;
+}
+
+#language-selector{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+#language label{
+    margin-bottom: 5%;
+    font-size: 2vmin;
+}
+
+#language select{
+    font-size: 2vmin;
+    background: cornflowerblue;
+    border-radius: 10px;
+    padding: 10px;
+    color: lightgoldenrodyellow;
+    border: 3px solid darkblue;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+}
+
+#quiz{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    justify-content: center;
+    width: 90%;
+    align-content: center;
+}
+
+#main-word{
+    margin: auto; 
+    font-size: 4vmin;
+    border: 1px solid cadetblue;
+    padding: 20px;
+    background: lightblue;
+    border-radius: 20px;  
+    margin-right: 10%; 
+    color: darkmagenta;
+}
+
+#options{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-left: 10%;
+}
+
+#options button{
+    font-size: 2vmin;
+    padding: 20px;
+    margin: auto;
+    margin-bottom: 12%;
+    width: -webkit-fill-available;;
+    border-radius: 20px;
+    outline: auto;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+#options button.true {
+    background-color: green;
+    color: white;
+    border: 1px solid darkblue;
+}
+
+#options button.false{
+    background-color: red;
+    color: white;
+    border: 1px solid darkblue;
+}
