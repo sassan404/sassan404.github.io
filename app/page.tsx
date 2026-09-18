@@ -1,6 +1,4 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+import SectionNav from './section-nav';
 
 const sections = [
   { id: 'about', label: 'About' },
@@ -10,53 +8,8 @@ const sections = [
   { id: 'open-source', label: 'Open Source' },
   { id: 'contact', label: 'Contact' },
 ] as const;
-const sectionIds = sections.map((section) => section.id);
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState<string>(sectionIds[0]);
-
-  useEffect(() => {
-    const syncHash = () => {
-      const currentHash = window.location.hash.replace('#', '');
-
-      if (sectionIds.includes(currentHash as (typeof sectionIds)[number])) {
-        setActiveSection(currentHash);
-      }
-    };
-
-    syncHash();
-    window.addEventListener('hashchange', syncHash);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
-
-        if (visibleEntry) {
-          setActiveSection(visibleEntry.target.id);
-        }
-      },
-      {
-        rootMargin: '-35% 0px -45% 0px',
-        threshold: [0.2, 0.4, 0.6],
-      },
-    );
-
-    sectionIds.forEach((id) => {
-      const section = document.getElementById(id);
-
-      if (section) {
-        observer.observe(section);
-      }
-    });
-
-    return () => {
-      window.removeEventListener('hashchange', syncHash);
-      observer.disconnect();
-    };
-  }, []);
-
   return (
     <div className="portfolio-shell">
       <a className="skip-link" href="#main-content">
@@ -72,22 +25,7 @@ export default function Home() {
             </p>
           </div>
 
-          <nav aria-label="Primary" className="section-nav">
-            {sections.map((section) => {
-              const isActive = activeSection === section.id;
-
-              return (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  aria-current={isActive ? 'location' : undefined}
-                  className={`nav-link${isActive ? ' nav-link-active' : ''}`}
-                >
-                  {section.label}
-                </a>
-              );
-            })}
-          </nav>
+          <SectionNav sections={sections} />
         </div>
       </header>
 
