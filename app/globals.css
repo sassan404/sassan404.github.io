@@ -119,6 +119,15 @@ a {
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
 }
 
+#about,
+#education,
+#experience,
+#projects,
+#open-source,
+#contact {
+  scroll-margin-top: 6.5rem;
+}
+
 .hero-card,
 .contact-card {
   padding: 1.5rem;

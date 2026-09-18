@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const sections = [
   { id: 'about', label: 'About' },
@@ -10,9 +10,9 @@ const sections = [
   { id: 'open-source', label: 'Open Source' },
   { id: 'contact', label: 'Contact' },
 ] as const;
+const sectionIds = sections.map((section) => section.id);
 
 export default function Home() {
-  const sectionIds = useMemo(() => sections.map((section) => section.id), []);
   const [activeSection, setActiveSection] = useState<string>(sectionIds[0]);
 
   useEffect(() => {
