@@ -16,6 +16,10 @@ export default function SectionNav({ sections }: SectionNavProps) {
   const activeSectionRef = useRef(activeSection);
 
   useEffect(() => {
+    setActiveSection(sections[0]?.id ?? '');
+  }, [sections]);
+
+  useEffect(() => {
     activeSectionRef.current = activeSection;
   }, [activeSection]);
 
