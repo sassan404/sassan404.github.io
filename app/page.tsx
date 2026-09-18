@@ -54,6 +54,8 @@ export default function Home() {
                   overflow: 'hidden',
                   padding: 0,
                   position: 'absolute',
+                  left: 0,
+                  top: 0,
                   whiteSpace: 'nowrap',
                   width: '1px',
                 }}
