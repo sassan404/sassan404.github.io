@@ -43,27 +43,9 @@ export default function Home() {
               href="https://github.com/sassan404"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ position: 'relative' }}
+              aria-label="github.com/sassan404 (opens in a new tab)"
             >
               github.com/sassan404
-              <span
-                style={{
-                  border: 0,
-                  clip: 'rect(0 0 0 0)',
-                  height: '1px',
-                  margin: '-1px',
-                  overflow: 'hidden',
-                  padding: 0,
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  whiteSpace: 'nowrap',
-                  width: '1px',
-                }}
-              >
-                {' '}
-                (opens in a new tab)
-              </span>
             </a>
           </li>
         </ul>
