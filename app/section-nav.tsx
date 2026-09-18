@@ -22,6 +22,28 @@ export default function SectionNav({ sections }: SectionNavProps) {
   useEffect(() => {
     const sectionIds = sections.map((section) => section.id);
     const ratios = new Map<string, number>();
+    const topOffset = 120;
+
+    const findNearestSection = () => {
+      let lastSectionAboveOffset = sectionIds[0] ?? '';
+
+      for (const sectionId of sectionIds) {
+        const section = document.getElementById(sectionId);
+
+        if (!section) {
+          continue;
+        }
+
+        if (section.getBoundingClientRect().top <= topOffset) {
+          lastSectionAboveOffset = sectionId;
+          continue;
+        }
+
+        return lastSectionAboveOffset;
+      }
+
+      return lastSectionAboveOffset;
+    };
 
     const syncHash = () => {
       const currentHash = window.location.hash.replace('#', '');
@@ -56,8 +78,15 @@ export default function SectionNav({ sections }: SectionNavProps) {
           },
         );
 
-        if (nextActiveSection.id) {
+        if (nextActiveSection.ratio > 0) {
           setActiveSection(nextActiveSection.id);
+          return;
+        }
+
+        const nearestSection = findNearestSection();
+
+        if (nearestSection) {
+          setActiveSection(nearestSection);
         }
       },
       {
