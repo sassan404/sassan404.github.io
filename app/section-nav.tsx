@@ -54,7 +54,10 @@ export default function SectionNav({ sections }: SectionNavProps) {
 
       if (sectionIds.includes(currentHash)) {
         setActiveSection(currentHash);
+        return;
       }
+
+      setActiveSection(findNearestSection());
     };
 
     syncHash();

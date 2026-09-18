@@ -31,6 +31,8 @@ a {
 .skip-link:focus,
 .skip-link:focus-visible {
   top: 1rem;
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
 }
 
 .topbar {
