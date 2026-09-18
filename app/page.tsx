@@ -16,7 +16,7 @@ export default function Home() {
         </p>
       </header>
 
-      <section>
+      <section style={{ marginTop: '1.5rem' }}>
         <h2>About Me</h2>
         <p>
           I build reliable software and enjoy turning complex ideas into useful
@@ -25,7 +25,7 @@ export default function Home() {
         </p>
       </section>
 
-      <section>
+      <section style={{ marginTop: '1.5rem' }}>
         <h2>Core Skills</h2>
         <ul>
           <li>Full-stack web development</li>
@@ -34,12 +34,18 @@ export default function Home() {
         </ul>
       </section>
 
-      <section>
+      <section style={{ marginTop: '1.5rem' }}>
         <h2>Contact</h2>
         <ul>
           <li>
             GitHub:{' '}
-            <a href="https://github.com/sassan404">github.com/sassan404</a>
+            <a
+              href="https://github.com/sassan404"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/sassan404
+            </a>
           </li>
         </ul>
       </section>
