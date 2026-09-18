@@ -1,113 +1,25 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-type Section = {
-  id: string;
-  label: string;
-};
+const sections = [
+  { id: "", label: "Home" },
+  { id: "education", label: "Education" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "open-source", label: "Open Source" },
+] as const;
 
-type SectionNavProps = {
-  sections: readonly Section[];
-};
+export default function SectionNav() {
+  const pathName = usePathname();
 
-export default function SectionNav({ sections }: SectionNavProps) {
-  const [activeSection, setActiveSection] = useState(sections[0]?.id ?? '');
+  console.log("pathName", pathName);
+  const sectionIds = sections.map((section) => section.id);
 
-  useEffect(() => {
-    setActiveSection(sections[0]?.id ?? '');
-  }, [sections]);
-
-  useEffect(() => {
-    const sectionIds = sections.map((section) => section.id);
-    const ratios = new Map<string, number>();
-    const topOffset = 120;
-
-    const findNearestSection = () => {
-      let lastSectionAboveOffset = sectionIds[0] ?? '';
-
-      for (const sectionId of sectionIds) {
-        const section = document.getElementById(sectionId);
-
-        if (!section) {
-          continue;
-        }
-
-        if (section.getBoundingClientRect().top <= topOffset) {
-          lastSectionAboveOffset = sectionId;
-          continue;
-        }
-
-        return lastSectionAboveOffset;
-      }
-
-      return lastSectionAboveOffset;
-    };
-
-    const syncHash = () => {
-      const currentHash = window.location.hash.replace('#', '');
-
-      if (sectionIds.includes(currentHash)) {
-        setActiveSection(currentHash);
-        return;
-      }
-
-      setActiveSection(findNearestSection());
-    };
-
-    syncHash();
-    window.addEventListener('hashchange', syncHash);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          ratios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
-        });
-
-        const nextActiveSection = sectionIds.reduce(
-          (currentBest, sectionId) => {
-            const sectionRatio = ratios.get(sectionId) ?? 0;
-
-            if (sectionRatio > currentBest.ratio) {
-              return { id: sectionId, ratio: sectionRatio };
-            }
-
-            return currentBest;
-          },
-          { id: '', ratio: 0 },
-        );
-
-        if (nextActiveSection.ratio > 0) {
-          setActiveSection(nextActiveSection.id);
-          return;
-        }
-
-        const nearestSection = findNearestSection();
-
-        if (nearestSection) {
-          setActiveSection(nearestSection);
-        }
-      },
-      {
-        rootMargin: '-35% 0px -45% 0px',
-        threshold: [0.2, 0.4, 0.6],
-      },
-    );
-
-    sectionIds.forEach((id) => {
-      const section = document.getElementById(id);
-
-      if (section) {
-        ratios.set(id, 0);
-        observer.observe(section);
-      }
-    });
-
-    return () => {
-      window.removeEventListener('hashchange', syncHash);
-      observer.disconnect();
-    };
-  }, [sections]);
+  const activeSection =
+    sectionIds.find((sectionId) => pathName.replace("/", "") === sectionId) ??
+    sectionIds[0];
 
   return (
     <nav aria-label="Primary" className="section-nav">
@@ -115,14 +27,14 @@ export default function SectionNav({ sections }: SectionNavProps) {
         const isActive = activeSection === section.id;
 
         return (
-          <a
+          <Link
             key={section.id}
-            href={`#${section.id}`}
-            aria-current={isActive ? 'location' : undefined}
-            className={`nav-link${isActive ? ' nav-link-active' : ''}`}
+            href={`/${section.id}`}
+            aria-current={isActive ? "location" : undefined}
+            className={`nav-link${isActive ? " nav-link-active" : ""}`}
           >
             {section.label}
-          </a>
+          </Link>
         );
       })}
     </nav>
