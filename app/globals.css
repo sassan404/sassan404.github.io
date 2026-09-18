@@ -257,7 +257,6 @@ a {
 }
 
 @media (max-width: 900px) {
-  .topbar-inner,
   .hero,
   .section-grid {
     grid-template-columns: 1fr;
@@ -265,6 +264,7 @@ a {
 
   .topbar-inner {
     display: grid;
+    grid-template-columns: 1fr;
   }
 
   .section-nav {

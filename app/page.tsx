@@ -55,7 +55,7 @@ export default function Home() {
       window.removeEventListener('hashchange', syncHash);
       observer.disconnect();
     };
-  }, [sectionIds]);
+  }, []);
 
   return (
     <div className="portfolio-shell">
