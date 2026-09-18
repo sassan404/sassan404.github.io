@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Next.js on GitHub Pages',
-  description: 'Deploy your static Next.js site to GitHub Pages.',
+  title: 'Sassan | Personal Profile',
+  description:
+    'A concise personal profile page that presents my experience, skills, and contact links.',
 };
 
 export default function RootLayout({
