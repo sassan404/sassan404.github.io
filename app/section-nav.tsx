@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Section = {
   id: string;
@@ -13,15 +13,10 @@ type SectionNavProps = {
 
 export default function SectionNav({ sections }: SectionNavProps) {
   const [activeSection, setActiveSection] = useState(sections[0]?.id ?? '');
-  const activeSectionRef = useRef(activeSection);
 
   useEffect(() => {
     setActiveSection(sections[0]?.id ?? '');
   }, [sections]);
-
-  useEffect(() => {
-    activeSectionRef.current = activeSection;
-  }, [activeSection]);
 
   useEffect(() => {
     const sectionIds = sections.map((section) => section.id);
@@ -79,10 +74,7 @@ export default function SectionNav({ sections }: SectionNavProps) {
 
             return currentBest;
           },
-          {
-            id: activeSectionRef.current,
-            ratio: ratios.get(activeSectionRef.current) ?? 0,
-          },
+          { id: '', ratio: 0 },
         );
 
         if (nextActiveSection.ratio > 0) {

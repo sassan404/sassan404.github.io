@@ -30,7 +30,7 @@ export default function Home() {
       </header>
 
       <main className="page-content" id="main-content">
-        <section className="hero" id="about" aria-labelledby="about-title">
+        <section className="hero anchor-section" id="about" aria-labelledby="about-title">
           <article className="hero-card">
             <span className="eyebrow">Personal Portfolio</span>
             <h2 className="hero-title" id="about-title">
@@ -82,7 +82,11 @@ export default function Home() {
         </section>
 
         <div className="section-grid">
-          <section className="panel" id="education" aria-labelledby="education-title">
+          <section
+            className="panel anchor-section"
+            id="education"
+            aria-labelledby="education-title"
+          >
             <h2 className="section-title" id="education-title">
               Education
             </h2>
@@ -114,7 +118,11 @@ export default function Home() {
             </ul>
           </section>
 
-          <section className="panel" id="experience" aria-labelledby="experience-title">
+          <section
+            className="panel anchor-section"
+            id="experience"
+            aria-labelledby="experience-title"
+          >
             <h2 className="section-title" id="experience-title">
               Experience
             </h2>
@@ -147,7 +155,11 @@ export default function Home() {
             </ul>
           </section>
 
-          <section className="panel" id="projects" aria-labelledby="projects-title">
+          <section
+            className="panel anchor-section"
+            id="projects"
+            aria-labelledby="projects-title"
+          >
             <h2 className="section-title" id="projects-title">
               Projects
             </h2>
@@ -179,7 +191,11 @@ export default function Home() {
             </ul>
           </section>
 
-          <section className="panel" id="open-source" aria-labelledby="open-source-title">
+          <section
+            className="panel anchor-section"
+            id="open-source"
+            aria-labelledby="open-source-title"
+          >
             <h2 className="section-title" id="open-source-title">
               Open Source
             </h2>
@@ -207,7 +223,11 @@ export default function Home() {
             </ul>
           </section>
 
-          <section className="panel" id="contact" aria-labelledby="contact-title">
+          <section
+            className="panel anchor-section"
+            id="contact"
+            aria-labelledby="contact-title"
+          >
             <h2 className="section-title" id="contact-title">
               Contact
             </h2>

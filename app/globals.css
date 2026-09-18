@@ -1,4 +1,5 @@
 html {
+  --section-scroll-margin: 6.5rem;
   scroll-behavior: smooth;
 }
 
@@ -115,6 +116,10 @@ a {
   align-items: stretch;
 }
 
+.anchor-section {
+  scroll-margin-top: var(--section-scroll-margin);
+}
+
 .panel,
 .hero-card,
 .contact-card {
@@ -122,15 +127,6 @@ a {
   border: 1px solid #dbe4f0;
   border-radius: 20px;
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
-}
-
-#about,
-#education,
-#experience,
-#projects,
-#open-source,
-#contact {
-  scroll-margin-top: 6.5rem;
 }
 
 .hero-card,
@@ -293,7 +289,23 @@ a {
     width: 100%;
   }
 
-  .section-nav,
+  .section-nav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .nav-link {
+    width: auto;
+  }
+
+  html {
+    --section-scroll-margin: 11rem;
+  }
+
+  .button-link {
+    width: 100%;
+  }
+
   .hero-actions {
     display: grid;
   }
