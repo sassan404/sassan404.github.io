@@ -46,6 +46,7 @@ export default function Home() {
             >
               github.com/sassan404
             </a>
+            {' '}(opens in a new tab)
           </li>
         </ul>
       </section>
