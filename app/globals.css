@@ -205,6 +205,10 @@ a {
   padding: 1.5rem;
 }
 
+.hero + .panel {
+  margin-top: 1.5rem;
+}
+
 .section-title {
   margin-top: 0;
   margin-bottom: 0.35rem;
@@ -239,6 +243,179 @@ a {
 .item-meta {
   color: #6b7280;
   font-size: 0.92rem;
+}
+
+.section-subtitle-heading {
+  margin: 1.75rem 0 0;
+  font-size: 1.05rem;
+}
+
+.item-heading h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.score-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.option-note {
+  margin: 0.35rem 0 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.option-notes {
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.note-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  color: #4b5563;
+  font-size: 0.92rem;
+}
+
+.note-pros li::marker {
+  color: #15803d;
+}
+
+.note-cons li::marker {
+  color: #b91c1c;
+}
+
+@media (min-width: 700px) {
+  .option-notes {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media print {
+  .topbar,
+  .skip-link,
+  .hero-actions {
+    display: none;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .print-cv {
+    padding: 0;
+  }
+
+  .panel,
+  .hero-card,
+  .contact-card {
+    border: none;
+    box-shadow: none;
+  }
+
+  .item-list li {
+    break-inside: avoid;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+.cv {
+  max-width: 46rem;
+  margin: 0 auto;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.cv-header {
+  border-bottom: 2px solid #111827;
+  padding-bottom: 0.4rem;
+}
+
+.cv-name {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.cv-contact {
+  margin: 0.15rem 0 0;
+  color: #374151;
+}
+
+.cv-heading {
+  margin: 0.7rem 0 0.3rem;
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid #d1d5db;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cv-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cv-list > li + li {
+  margin-top: 0.45rem;
+}
+
+.cv-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.1rem 0.75rem;
+}
+
+.cv-dates {
+  color: #4b5563;
+  white-space: nowrap;
+}
+
+.cv-bullets {
+  margin: 0.1rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.cv-skills {
+  display: grid;
+  gap: 0.15rem 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cv-skills p,
+.cv-line {
+  margin: 0;
+}
+
+@page {
+  margin: 12mm;
+}
+
+@media print {
+  .cv {
+    max-width: none;
+    font-size: 0.72rem;
+  }
+
+  .cv-heading {
+    break-after: avoid;
+  }
+
+  .cv-list > li,
+  .cv-bullets li {
+    break-inside: avoid;
+  }
 }
 
 .pill-list {

@@ -1,6 +1,6 @@
-import SectionNav from "../section-nav";
+import { projects } from "../cv-data";
 
-export default function Home() {
+export default function Projects() {
   return (
     <section
       className="panel anchor-section"
@@ -11,30 +11,27 @@ export default function Home() {
         Projects
       </h2>
       <p className="section-copy">
-        Selected work spanning product development, experimentation, and
-        practical problem solving.
+        Personal builds where I get to own the whole stack, from idea to
+        deployment.
       </p>
       <ul className="item-list">
-        <li>
-          <div className="item-heading">
-            <h3>Portfolio Website</h3>
-            <span className="item-meta">Next.js · TypeScript</span>
-          </div>
-          <p className="item-copy">
-            A responsive personal site focused on concise storytelling,
-            accessible navigation, and clean presentation.
-          </p>
-        </li>
-        <li>
-          <div className="item-heading">
-            <h3>Product & Utility Builds</h3>
-            <span className="item-meta">Featured Work</span>
-          </div>
-          <p className="item-copy">
-            Space for highlighting projects that demonstrate ownership,
-            technical depth, and measurable results.
-          </p>
-        </li>
+        {projects.map((project) => (
+          <li key={project.name}>
+            <div className="item-heading">
+              <h3>
+                {project.name}
+                {project.href ? (
+                  <>
+                    {" "}
+                    <a href={project.href}>live app</a>
+                  </>
+                ) : null}
+              </h3>
+              <span className="item-meta">{project.meta}</span>
+            </div>
+            <p className="item-copy">{project.copy}</p>
+          </li>
+        ))}
       </ul>
     </section>
   );

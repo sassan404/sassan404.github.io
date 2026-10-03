@@ -3,9 +3,9 @@ import "./globals.css";
 import SectionNav from "./section-nav";
 
 export const metadata: Metadata = {
-  title: "Sassan | Personal Profile",
+  title: "Hasan Ismail | Software Developer",
   description:
-    "A concise personal profile page that presents my experience, skills, and contact links.",
+    "Portfolio of Hasan Ismail, full stack software developer working with Next.js, TypeScript, Java and Scala.",
 };
 
 export default function RootLayout({
@@ -24,10 +24,8 @@ export default function RootLayout({
           <header className="topbar">
             <div className="topbar-inner">
               <div className="brand">
-                <h1 className="brand-title">Sassan</h1>
-                <p className="brand-tagline">
-                  Software Engineer · Problem Solver · Lifelong Learner
-                </p>
+                <h1 className="brand-title">Hasan Ismail</h1>
+                <p className="brand-tagline">Full Stack Developer · Beirut, Lebanon</p>
               </div>
 
               <SectionNav />
