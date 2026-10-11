@@ -1,4 +1,9 @@
-import { education, languages } from "../cv-data";
+import {
+  certLabel,
+  certifications,
+  education,
+  languages,
+} from "../cv-data";
 
 export default function Education() {
   return (
@@ -22,6 +27,15 @@ export default function Education() {
               <span className="item-meta">{entry.period}</span>
             </div>
             <p className="item-copy">{entry.schools}</p>
+          </li>
+        ))}
+      </ul>
+
+      <h3 className="section-subtitle-heading">Certifications</h3>
+      <ul className="pill-list">
+        {certifications.map((cert) => (
+          <li key={cert.name}>
+            <span className="pill">{certLabel(cert)}</span>
           </li>
         ))}
       </ul>

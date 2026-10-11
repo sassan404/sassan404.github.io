@@ -31,9 +31,29 @@ export const education = [
 ];
 
 export const languages = [
+  { language: "Arabic", level: "Native or bilingual" },
   { language: "English", level: "Full professional proficiency" },
-  { language: "French", level: "Intermediate proficiency" },
+  { language: "French", level: "Elementary proficiency" },
 ];
+
+// ponytail: issuer/period are optional because the CCNA entries are listed on
+// LinkedIn without them. Fill them in and drop the `?`.
+export const certifications = [
+  {
+    name: "Java (Intermediate)",
+    issuer: "HackerRank",
+    period: "September 2020",
+  },
+  { name: "CCNA 1 & 2", issuer: "", period: "" },
+  { name: "CCNA Security", issuer: "", period: "" },
+] as const satisfies readonly {
+  name: string;
+  issuer?: string;
+  period?: string;
+}[];
+
+export const certLabel = (cert: (typeof certifications)[number]) =>
+  [cert.name, cert.issuer, cert.period].filter(Boolean).join(", ");
 
 export const skillGroups = [
   { slug: "programming", label: "Programming" },

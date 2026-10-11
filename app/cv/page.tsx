@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 import {
+  certLabel,
+  certifications,
   education,
   experienceWithSkills,
   languages,
@@ -58,6 +60,18 @@ export default function Cv() {
           <li key={entry.degree}>
             <Row dates={entry.period}>
               <strong>{entry.degree}</strong> — {entry.schools}
+            </Row>
+          </li>
+        ))}
+      </ul>
+
+      <h2 className="cv-heading">Certifications</h2>
+      <ul className="cv-list">
+        {certifications.map((cert) => (
+          <li key={cert.name}>
+            <Row dates={cert.period}>
+              <strong>{cert.name}</strong>
+              {cert.issuer ? ` — ${cert.issuer}` : ""}
             </Row>
           </li>
         ))}
