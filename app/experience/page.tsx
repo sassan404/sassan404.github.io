@@ -1,4 +1,5 @@
-import { experience } from "../cv-data";
+import SkillPills from "../skill-pills";
+import { experienceWithSkills } from "../cv-data";
 
 export default function Experience() {
   return (
@@ -13,10 +14,11 @@ export default function Experience() {
       <p className="section-copy">
         Delivering software across full stack web, IoT research and front-end
         work, with an emphasis on maintainability, iteration and user impact.
+        Every skill below opens the projects and roles behind it.
       </p>
       <ul className="item-list">
-        {experience.map((role) => (
-          <li key={`${role.company}-${role.period}`}>
+        {experienceWithSkills.map((role) => (
+          <li key={role.slug}>
             <div className="item-heading">
               <h3>
                 {role.role} — {role.company}
@@ -30,6 +32,7 @@ export default function Experience() {
                 <li key={point}>{point}</li>
               ))}
             </ul>
+            <SkillPills skills={role.skills} />
           </li>
         ))}
       </ul>

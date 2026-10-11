@@ -30,7 +30,9 @@ export default function Education() {
       <ul className="pill-list">
         {languages.map((entry) => (
           <li key={entry.language}>
-            {entry.language} — {entry.level}
+            <span className="pill">
+              {entry.language} — {entry.level}
+            </span>
           </li>
         ))}
       </ul>

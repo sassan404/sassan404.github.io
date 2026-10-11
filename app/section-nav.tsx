@@ -14,7 +14,6 @@ const sections = [
 export default function SectionNav() {
   const pathName = usePathname();
 
-  console.log("pathName", pathName);
   const sectionIds = sections.map((section) => section.id);
 
   const activeSection =

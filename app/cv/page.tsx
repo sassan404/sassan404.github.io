@@ -3,11 +3,11 @@
 import { useEffect } from "react";
 import {
   education,
-  experience,
+  experienceWithSkills,
   languages,
   profile,
-  projects,
-  skills,
+  projectsWithSkills,
+  skillsByGroup,
 } from "../cv-data";
 
 function Row({ children, dates }: { children: React.ReactNode; dates?: string }) {
@@ -38,7 +38,7 @@ export default function Cv() {
 
       <h2 className="cv-heading">Experience</h2>
       <ul className="cv-list">
-        {experience.map((role) => (
+        {experienceWithSkills.map((role) => (
           <li key={`${role.company}-${role.period}`}>
             <Row dates={role.period}>
               <strong>{role.role}</strong> — {role.company}, {role.place}
@@ -65,9 +65,10 @@ export default function Cv() {
 
       <h2 className="cv-heading">Main Skills</h2>
       <div className="cv-skills">
-        {skills.map((skill) => (
-          <p key={skill.group}>
-            <strong>{skill.group}:</strong> {skill.items.join(", ")}
+        {skillsByGroup.map((group) => (
+          <p key={group.slug}>
+            <strong>{group.label}:</strong>{" "}
+            {group.skills.map((skill) => skill.name).join(", ")}
           </p>
         ))}
       </div>
@@ -79,16 +80,17 @@ export default function Cv() {
 
       <h2 className="cv-heading">Personal Projects</h2>
       <ul className="cv-list">
-        {projects.map((project) => (
-          <li key={project.name}>
-            <Row>
-              <strong>{project.name}</strong> — {project.copy}{" "}
-              {project.href ? (
-                <a href={project.href}>live app</a>
-              ) : null}
-            </Row>
-          </li>
-        ))}
+{projectsWithSkills.map((project) => (
+            <li key={project.slug}>
+              <Row>
+                <strong>{project.name}</strong> — {project.copy} (
+                {project.skills.map((skill) => skill.name).join(", ")}){" "}
+                {project.href ? (
+                  <a href={project.href}>live app</a>
+                ) : null}
+              </Row>
+            </li>
+          ))}
       </ul>
     </article>
   );

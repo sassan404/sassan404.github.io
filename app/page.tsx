@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { profile, skills } from "./cv-data";
+import SkillPills from "./skill-pills";
+import { profile, skillsByGroup } from "./cv-data";
 
 export default function Home() {
   return (
@@ -72,21 +73,17 @@ export default function Home() {
         </aside>
       </section>
 
-      <section className="panel" aria-labelledby="skills-title">
+      <section className="panel" id="skills" aria-labelledby="skills-title">
         <h2 className="section-title" id="skills-title">
           Main Skills
         </h2>
         <ul className="item-list">
-          {skills.map((skill) => (
-            <li key={skill.group}>
+          {skillsByGroup.map((group) => (
+            <li key={group.slug}>
               <div className="item-heading">
-                <h3>{skill.group}</h3>
+                <h3>{group.label}</h3>
               </div>
-              <ul className="pill-list">
-                {skill.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+              <SkillPills skills={group.skills} />
             </li>
           ))}
         </ul>

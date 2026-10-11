@@ -1,4 +1,5 @@
-import { projects } from "../cv-data";
+import SkillPills from "../skill-pills";
+import { projectsWithSkills } from "../cv-data";
 
 export default function Projects() {
   return (
@@ -12,11 +13,11 @@ export default function Projects() {
       </h2>
       <p className="section-copy">
         Personal builds where I get to own the whole stack, from idea to
-        deployment.
+        deployment. Every skill below opens the projects and roles behind it.
       </p>
       <ul className="item-list">
-        {projects.map((project) => (
-          <li key={project.name}>
+        {projectsWithSkills.map((project) => (
+          <li key={project.slug}>
             <div className="item-heading">
               <h3>
                 {project.name}
@@ -27,9 +28,9 @@ export default function Projects() {
                   </>
                 ) : null}
               </h3>
-              <span className="item-meta">{project.meta}</span>
             </div>
             <p className="item-copy">{project.copy}</p>
+            <SkillPills skills={project.skills} />
           </li>
         ))}
       </ul>
