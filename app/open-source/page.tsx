@@ -1,168 +1,211 @@
-type Option = {
+"use client";
+
+import { useState } from "react";
+
+type Tier = "S" | "A" | "B" | "C" | "D" | "E" | "F";
+
+const TIERS = [
+  { tier: "S", label: "Fantastic", meaning: "absolutely loved it" },
+  { tier: "A", label: "Great", meaning: "highly recommended" },
+  { tier: "B", label: "Good", meaning: "worth using" },
+  { tier: "C", label: "Neutral / Unranked", meaning: "no verdict yet" },
+  { tier: "D", label: "Meh", meaning: "noticeable flaws" },
+  { tier: "E", label: "Poor", meaning: "mostly disappointing" },
+  { tier: "F", label: "Bad", meaning: "avoid" },
+] satisfies readonly { tier: Tier; label: string; meaning: string }[];
+
+type Category = "photos" | "os" | "browsers" | "email" | "storage" | "notes" | "ide";
+
+const CATEGORIES = [
+  { slug: "photos", label: "Photos" },
+  { slug: "os", label: "OS" },
+  { slug: "browsers", label: "Browsers" },
+  { slug: "email", label: "Email" },
+  { slug: "storage", label: "Storage" },
+  { slug: "notes", label: "Notes" },
+  { slug: "ide", label: "IDEs" },
+] as const satisfies readonly { slug: Category; label: string }[];
+
+type Item = {
   name: string;
+  category: Category;
+  tier: Tier;
+  notes?: string[];
   proprietary?: boolean;
-  score?: number;
-  pros?: string[];
-  cons?: string[];
-  extra?: string;
 };
 
-const groups: { category: string; options: Option[] }[] = [
+const items = [
   {
-    category: "Photos",
-    options: [
-      {
-        name: "Google Photos",
-        proprietary: true,
-        score: -10,
-        cons: ["Powered by Google"],
-      },
-      { name: "Immich" },
-      { name: "PhotoPrism" },
-      { name: "Nextcloud Photos" },
-      { name: "Piwigo" },
-    ],
+    name: "Google Photos",
+    category: "photos",
+    tier: "F",
+    proprietary: true,
+    notes: ["Powered by Google"],
   },
-  {
-    category: "OS",
-    options: [
-      {
-        name: "Windows",
-        proprietary: true,
-        score: -10,
-        cons: [
-          "Made by Microsoft",
-          "Has a lot of things running in the background",
-          "Forces the use of an online account",
-          "Forces the use of AI",
-        ],
-      },
-      {
-        name: "Linux Mint",
-        score: 6,
-        pros: ["Very simple"],
-        cons: [
-          "Does not have the aesthetics that other OS have, can seem boring for some people",
-        ],
-      },
-      {
-        name: "Zorin OS",
-        score: 5,
-        pros: ["Worked well for gaming"],
-        cons: [
-          "Seems to be slow at reading disks and can be slow in general",
-          "Animations seem to be a bit laggy",
-        ],
-      },
-      {
-        name: "openSUSE Leap",
-        score: 4,
-        pros: [
-          "Feels techy and fits to use as my work OS",
-        ],
-        cons: [
-          "Not very robust",
-          "My bluetooth headset often disconnects on its own",
-        ],
-      },
-      {
-        name: "Bazzite",
-        score: -2,
-        cons: ["Could not install"],
-      },
-      {
-        name: "Pop!_OS",
-        score: -2,
-        cons: [
-          "Had an issue with moving the camera while playing Sins of a Solar Empire",
-          "Animation felt laggy",
-          "Pop-ups did not work well",
-        ],
-      },
-      {
-        name: "Arch Linux",
-        score: -1,
-        cons: ["Flagged as an OS for experts"],
-      },
-      { name: "CachyOS" },
-    ],
-  },
-  {
-    category: "Browsers",
-    options: [
-      { name: "Chrome", proprietary: true, score: -10 },
-      { name: "Brave", score: 4 },
-      { name: "Firefox", score: -5 },
-      { name: "Zen Browser", score: 3, extra: "Firefox based" },
-      { name: "Arc", score: 1 },
-      {
-        name: "LibreWolf",
-        pros: ["Open source", "Good for privacy"],
-        extra: "Firefox based",
-      },
-      {
-        name: "Helium",
-        pros: ["Chrome but more private and blocks ads"],
-        cons: ["Uses more RAM than Firefox based browsers"],
-        extra: "Chrome based",
-      },
-    ],
-  },
-  {
-    category: "Email",
-    options: [
-      {
-        name: "Gmail",
-        proprietary: true,
-        score: -2,
-        cons: ["From Google", "Something else"],
-      },
-      { name: "Outlook", score: -1, cons: ["From Microsoft"] },
-      { name: "Proton Mail" },
-      { name: "Mailbox.org" },
-      { name: "Tuta" },
-      { name: "Nextcloud Mail" },
-    ],
-  },
-  {
-    category: "Storage",
-    options: [
-      { name: "Google Drive", proprietary: true },
-      { name: "Proton Drive" },
-      { name: "Dropbox" },
-      { name: "Nextcloud" },
-    ],
-  },
-  {
-    category: "Notes",
-    options: [
-      { name: "Notion", proprietary: true },
-      { name: "Google Keep" },
-      { name: "Google Docs" },
-      { name: "Obsidian" },
-      { name: "Logseq" },
-      { name: "AppFlow" },
-    ],
-  },
-  {
-    category: "IDEs",
-    options: [
-      { name: "IntelliJ IDEA", proprietary: true },
-      { name: "VS Code" },
-      { name: "VSMATE" },
-      { name: "Sublime Text" },
-      { name: "Neovim" },
-      { name: "Zed" },
-    ],
-  },
-];
+  { name: "Immich", category: "photos", tier: "C" },
+  { name: "PhotoPrism", category: "photos", tier: "C" },
+  { name: "Nextcloud Photos", category: "photos", tier: "C" },
+  { name: "Piwigo", category: "photos", tier: "C" },
 
-// ponytail: linear red -> green ramp on a 0 hue at -10 to 120 hue at +10.
-// Swap for a real colour scale once more than a handful of options are scored.
-const scoreColor = (score: number) =>
-  `hsl(${((score + 10) / 20) * 120} 65% 42%)`;
+  {
+    name: "Windows",
+    category: "os",
+    tier: "F",
+    proprietary: true,
+    notes: [
+      "Made by Microsoft",
+      "Has a lot of things running in the background",
+      "Forces the use of an online account",
+      "Forces the use of AI",
+    ],
+  },
+  {
+    name: "Linux Mint",
+    category: "os",
+    tier: "S",
+    notes: [
+      "Very simple",
+      "Does not have the aesthetics that other OS have, can seem boring for some people",
+    ],
+  },
+  {
+    name: "Zorin OS",
+    category: "os",
+    tier: "B",
+    notes: [
+      "Worked well for gaming",
+      "Seems to be slow at reading disks and can be slow in general",
+      "Animations seem to be a bit laggy",
+    ],
+  },
+  {
+    name: "openSUSE Leap",
+    category: "os",
+    tier: "B",
+    notes: [
+      "Feels techy and fits to use as my work OS",
+      "Not very robust",
+      "My bluetooth headset often disconnects on its own",
+    ],
+  },
+  { name: "Bazzite", category: "os", tier: "D", notes: ["Could not install"] },
+  {
+    name: "Pop!_OS",
+    category: "os",
+    tier: "D",
+    notes: [
+      "Had an issue with moving the camera while playing Sins of a Solar Empire",
+      "Animation felt laggy",
+      "Pop-ups did not work well",
+    ],
+  },
+  {
+    name: "Arch Linux",
+    category: "os",
+    tier: "D",
+    notes: ["Flagged as an OS for experts"],
+  },
+  { name: "CachyOS", category: "os", tier: "C" },
+
+  { name: "Chrome", category: "browsers", tier: "F", proprietary: true },
+  { name: "Brave", category: "browsers", tier: "A" },
+  {
+    name: "Firefox",
+    category: "browsers",
+    tier: "E",
+    notes: ["Firefox based", "Felt worse than the Chromium based ones"],
+  },
+  {
+    name: "Zen Browser",
+    category: "browsers",
+    tier: "B",
+    notes: ["Firefox based"],
+  },
+  {
+    name: "Arc",
+    category: "browsers",
+    tier: "C",
+    notes: ["Chrome based", "Never really settled into it"],
+  },
+  {
+    name: "LibreWolf",
+    category: "browsers",
+    tier: "C",
+    notes: ["Firefox based", "Open source, good for privacy"],
+  },
+  {
+    name: "Helium",
+    category: "browsers",
+    tier: "C",
+    notes: [
+      "Chrome based",
+      "Chrome but more private and blocks ads",
+      "Uses more RAM than Firefox based browsers",
+    ],
+  },
+
+  {
+    name: "Gmail",
+    category: "email",
+    tier: "D",
+    proprietary: true,
+    notes: ["From Google", "Something else"],
+  },
+  {
+    name: "Outlook",
+    category: "email",
+    tier: "D",
+    proprietary: true,
+    notes: ["From Microsoft"],
+  },
+  { name: "Proton Mail", category: "email", tier: "C" },
+  { name: "Mailbox.org", category: "email", tier: "C" },
+  { name: "Tuta", category: "email", tier: "C" },
+  { name: "Nextcloud Mail", category: "email", tier: "C" },
+
+  {
+    name: "Google Drive",
+    category: "storage",
+    tier: "F",
+    proprietary: true,
+    notes: ["Renting my files from Google"],
+  },
+  { name: "Proton Drive", category: "storage", tier: "C" },
+  { name: "Dropbox", category: "storage", tier: "C" },
+  { name: "Nextcloud", category: "storage", tier: "C" },
+
+  { name: "Notion", category: "notes", tier: "C", proprietary: true },
+  { name: "Google Keep", category: "notes", tier: "C" },
+  { name: "Google Docs", category: "notes", tier: "C" },
+  { name: "Obsidian", category: "notes", tier: "C" },
+  { name: "Logseq", category: "notes", tier: "C" },
+  { name: "AppFlow", category: "notes", tier: "C" },
+
+  {
+    name: "IntelliJ IDEA",
+    category: "ide",
+    tier: "C",
+    proprietary: true,
+    notes: ["The one it replaces"],
+  },
+  { name: "VS Code", category: "ide", tier: "C" },
+  { name: "VSMATE", category: "ide", tier: "C" },
+  { name: "Sublime Text", category: "ide", tier: "C" },
+  { name: "Neovim", category: "ide", tier: "C" },
+  { name: "Zed", category: "ide", tier: "C" },
+] satisfies readonly Item[];
+
+const ALL = "all" as const;
+
+const categoryLabel = new Map(CATEGORIES.map((row) => [row.slug, row.label]));
 
 export default function OpenSource() {
+  const [category, setCategory] = useState<typeof ALL | Category>(ALL);
+
+  const visible = items.filter(
+    (item) => category === ALL || item.category === category,
+  );
+
   return (
     <section
       className="panel anchor-section"
@@ -170,76 +213,81 @@ export default function OpenSource() {
       aria-labelledby="open-source-title"
     >
       <h2 className="section-title" id="open-source-title">
-        Open Source
+        Apps &amp; Services
       </h2>
       <p className="section-copy">
-        Open source is where experimentation, shared learning, and community
-        contribution come together. These are the tools I reach for when I want
-        to own my data instead of renting it, scored from -10 to +10 against the
-        proprietary tool in each row.
+        Every app and service I actually use, ranked honestly. Hover or focus a
+        pill to see why it landed in that tier. C means no verdict yet, not a bad
+        score.
       </p>
 
-      <ul className="item-list">
-        {groups.map((group) => (
-          <li key={group.category}>
-            <div className="item-heading">
-              <h3>{group.category}</h3>
-              <span className="item-meta">
-                instead of{" "}
-                {group.options.find((option) => option.proprietary)?.name}
-              </span>
-            </div>
-
-            <ul className="item-list">
-              {group.options.map((option) => (
-                <li key={option.name}>
-                  <div className="item-heading">
-                    <h4>
-                      {option.name}
-                      {option.proprietary ? " (proprietary)" : null}
-                    </h4>
-                    {option.score !== undefined ? (
-                      <span
-                        className="score-badge"
-                        style={{ background: scoreColor(option.score) }}
-                      >
-                        {option.score > 0 ? `+${option.score}` : option.score}
-                      </span>
-                    ) : null}
-                  </div>
-
-                  {option.extra ? (
-                    <p className="option-note">{option.extra}</p>
-                  ) : null}
-
-                  {option.pros?.length || option.cons?.length ? (
-                    <div className="option-notes">
-                      {option.pros?.length ? (
-                        <ul className="note-list note-pros">
-                          {option.pros.map((pro) => (
-                            <li key={pro}>{pro}</li>
-                          ))}
-                        </ul>
-                      ) : null}
-                      {option.cons?.length ? (
-                        <ul className="note-list note-cons">
-                          {option.cons.map((con) => (
-                            <li key={con}>{con}</li>
-                          ))}
-                        </ul>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-          </li>
+      <div className="rank-filters" role="group" aria-label="Filter by type">
+        <button
+          type="button"
+          className="chip"
+          aria-pressed={category === ALL}
+          onClick={() => setCategory(ALL)}
+        >
+          All
+        </button>
+        {CATEGORIES.map((row) => (
+          <button
+            key={row.slug}
+            type="button"
+            className="chip"
+            aria-pressed={category === row.slug}
+            onClick={() => setCategory(row.slug)}
+          >
+            {row.label}
+          </button>
         ))}
-      </ul>
+      </div>
 
-      <p className="section-copy">
-        No badge means not scored yet, not a bad score.
-      </p>
+      <ul className="tier-rows">
+        {TIERS.map((row) => {
+          const inTier = visible.filter((item) => item.tier === row.tier);
+
+          return (
+            <li key={row.tier} className="tier-row">
+              <span className="tier-label" data-tier={row.tier}>
+                <span className="tier-letter">{row.tier}</span>
+                <span className="tier-name">
+                  {row.label} · {row.meaning}
+                </span>
+              </span>
+
+              <ul className="pill-list">
+                {inTier.map((item) => {
+                  const tipId = `rank-tip-${item.name.replace(/\W+/g, "-")}`;
+
+                  return (
+                    <li key={item.name} className="rank-cell">
+                      <span
+                        className="pill rank-pill"
+                        data-tier={item.tier}
+                        tabIndex={0}
+                        aria-describedby={tipId}
+                      >
+                        {item.name}
+                      </span>
+                      <span className="rank-tip" id={tipId} role="tooltip">
+                        <strong>
+                          {item.tier} · {row.label}
+                        </strong>{" "}
+                        · {categoryLabel.get(item.category)}
+                        {item.proprietary ? " · proprietary" : ""}
+                        {item.notes?.length ? (
+                          <em> — {item.notes.join("\n")}</em>
+                        ) : null}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
+          );
+        })}
+      </ul>
 
       <ul className="item-list">
         <li>

@@ -247,27 +247,6 @@ a {
   font-size: 1rem;
 }
 
-.score-badge {
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.9rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.option-note {
-  margin: 0.35rem 0 0;
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.option-notes {
-  margin-top: 0.5rem;
-  display: grid;
-  gap: 0.5rem;
-}
-
 .note-list {
   margin: 0.5rem 0 0;
   padding-left: 1.1rem;
@@ -275,17 +254,145 @@ a {
   font-size: 0.92rem;
 }
 
-.note-pros li::marker {
-  color: #15803d;
+/* ranking: type filters, tier rows, hover/focus tooltips */
+.rank-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
 }
 
-.note-cons li::marker {
-  color: #b91c1c;
+.chip {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
 }
 
-@media (min-width: 700px) {
-  .option-notes {
-    grid-template-columns: 1fr 1fr;
+.chip:hover {
+  border-color: #93c5fd;
+}
+
+.chip[aria-pressed="true"] {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+.chip:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+.pill-list .rank-cell {
+  position: relative;
+}
+
+/* TierMaker chart: one row per tier, label column on the left */
+.tier-rows {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.tier-row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.tier-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0.5rem 0.25rem;
+  border-radius: 8px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.tier-letter {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tier-name {
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
+/* TierMaker's rainbow ramp, S -> F. Pastel, so dark text on the pills. */
+[data-tier="S"] { background: #ff7f7f; }
+[data-tier="A"] { background: #ffbf7f; }
+[data-tier="B"] { background: #ffdf7f; }
+[data-tier="C"] { background: #ffff7f; }
+[data-tier="D"] { background: #bfff7f; }
+[data-tier="E"] { background: #7fff7f; }
+[data-tier="F"] { background: #7f7fff; }
+
+/* white is unreadable on the two palest bands */
+[data-tier="B"].tier-label,
+[data-tier="C"].tier-label {
+  color: #111827;
+}
+
+.rank-pill {
+  color: #1f2937;
+  cursor: help;
+}
+
+.rank-pill:hover,
+.rank-pill:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+.tier-row > .pill-list {
+  min-height: 2.75rem;
+  align-content: center;
+  margin-top: 0;
+}
+
+.rank-tip {
+  display: none;
+  position: absolute;
+  z-index: 20;
+  bottom: calc(100% + 0.4rem);
+  left: 0;
+  width: max-content;
+  max-width: 20rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  background: #111827;
+  color: #f9fafb;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.rank-cell:hover .rank-tip,
+.rank-pill:focus-visible + .rank-tip {
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .tier-row {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+  }
+
+  .tier-name {
+    display: none;
   }
 }
 
