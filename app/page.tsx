@@ -11,32 +11,30 @@ export default function Home() {
         aria-labelledby="about-title"
       >
         <article className="hero-card">
-          <span className="eyebrow">Personal Portfolio</span>
           <h2 className="hero-title" id="about-title">
-            {profile.name}, full stack developer building dependable software
-            with a focus on clarity, delivery and continuous learning.
+            {profile.name}
           </h2>
           <p className="hero-summary">
-            I work mostly with Next.js, TypeScript, Java and Scala, across web
-            platforms, backend services and IoT research. This portfolio covers
-            my experience, studies, projects and the open source tools I use to
-            own my own data.
+            Full stack developer. Sometimes passionate, sometimes distracted.
           </p>
-
-          <div className="hero-actions">
-            <Link className="button-link button-link-primary" href="/projects">
-              View Projects
-            </Link>
-            <a className="button-link" href="#contact">
-              Contact Me
-            </a>
-            <Link className="button-link" href="/cv">
-              Download CV
-            </Link>
-          </div>
+          <p className="hero-summary">
+            Strongly until AI in the morning, easily submitting to the AI
+            overlords in the afternoon.
+          </p>
+          <p className="hero-summary">
+            I start some personal projects that I rarely finish, but I never
+            give up.
+          </p>
+          <p className="hero-summary">
+            This website covers my experience, projects and my other interests.
+          </p>
         </article>
 
-        <aside className="contact-card" id="contact" aria-labelledby="contact-summary-title">
+        <aside
+          className="contact-card"
+          id="contact"
+          aria-labelledby="contact-summary-title"
+        >
           <h2 className="section-title" id="contact-summary-title">
             Quick Contact
           </h2>
@@ -46,8 +44,7 @@ export default function Home() {
           </p>
           <ul className="contact-list">
             <li>
-              Email:{" "}
-              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+              Email: <a href={`mailto:${profile.email}`}>{profile.email}</a>
             </li>
             <li>
               LinkedIn:{" "}
@@ -61,7 +58,11 @@ export default function Home() {
             </li>
             <li>
               GitHub:{" "}
-              <a href={profile.github} target="_blank" rel="noopener noreferrer">
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {profile.githubLabel}
               </a>
             </li>
@@ -70,6 +71,15 @@ export default function Home() {
             </li>
             <li>Location: {profile.location} — remote friendly</li>
           </ul>
+
+          <div className="hero-actions">
+            <Link className="button-link button-link-primary" href="/projects">
+              View Projects
+            </Link>
+            <Link className="button-link" href="/cv">
+              Download CV
+            </Link>
+          </div>
         </aside>
       </section>
 

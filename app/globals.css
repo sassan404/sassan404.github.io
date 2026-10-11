@@ -134,18 +134,8 @@ a {
   padding: 1.5rem;
 }
 
-.eyebrow {
-  display: inline-flex;
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-  background: #eff6ff;
-  color: #1d4ed8;
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
 .hero-title {
-  margin: 1rem 0 0.5rem;
+  margin: 0 0 0.5rem;
   font-size: clamp(2rem, 5vw, 3.35rem);
   line-height: 1.05;
 }
@@ -472,26 +462,12 @@ a.pill:focus-visible {
     padding: 1.25rem;
   }
 
-  .nav-link,
   .button-link {
     width: 100%;
-  }
-
-  .section-nav {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .nav-link {
-    width: auto;
   }
 
   html {
     --section-scroll-margin: 11rem;
-  }
-
-  .button-link {
-    width: 100%;
   }
 
   .hero-actions {
